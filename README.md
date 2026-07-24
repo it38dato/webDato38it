@@ -82,6 +82,9 @@ docker compose exec web python manage.py test
 docker compose exec web python manage.py test webApp
 Task:
 GitHub Actions.
+💻 Локально — PostgreSQL (как сейчас).
+🌐 На сервере — PostgreSQL.
+🤖 GitHub Actions — SQLite только для тестов.
 Decision:
 - fileExecute.sh используется для предоставления прав доступа
 - gitAdd.sh используется для добавления нового проекта в гитхаб
