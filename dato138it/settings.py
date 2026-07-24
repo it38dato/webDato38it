@@ -19,7 +19,14 @@ SECRET_KEY = config(
 )
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = [config('SERVER_IP'), 'localhost', '0.0.0.0', 'dato138it.ru']
+#ALLOWED_HOSTS = [config('SERVER_IP'), 'localhost', '0.0.0.0', 'dato138it.ru']
+ALLOWED_HOSTS = [
+    config("SERVER_IP", default="127.0.0.1"),
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+    "dato138it.ru",
+]
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
