@@ -83,10 +83,13 @@ docker compose exec web python manage.py test webApp
 Task:
 GitHub Actions.
 Decision:
-fileExecute.sh используется для предоставления прав доступа
-gitAdd.sh используется для добавления нового проекта в гитхаб
+- fileExecute.sh используется для предоставления прав доступа
+- gitAdd.sh используется для добавления нового проекта в гитхаб
+- gitDiff.sh Сравнивает изменения в гитхабе
+- gitPush.sh Добавляет изменения в гитхаб
 для запуска скрипта необходимо ввести команды:
 cd scripts/
+pwd
 ./fileExecute.sh
 Введите путь к файлу: /home/dato/dato138it/scripts/gitAdd.sh
 ./gitAdd.sh
