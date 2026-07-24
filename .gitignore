@@ -1,0 +1,8 @@
+backupDb.sql
+.env
+.git
+db.sqlite3
+dato138it/__pycache__
+webApp/__pycache__
+webApp/migrations/__pycache__
+backups/
