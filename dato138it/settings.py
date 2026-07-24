@@ -12,7 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #load_dotenv()  # loads the configs from .env
 #SECRET_KEY = str(os.getenv('DJANGO_KEY'))
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('DJANGO_KEY')
+#SECRET_KEY = config('DJANGO_KEY')
+SECRET_KEY = config(
+    "DJANGO_KEY",
+    default="github-actions-secret-key"
+)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = [config('SERVER_IP'), 'localhost', '0.0.0.0', 'dato138it.ru']
@@ -59,17 +63,35 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dato138it.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWD'),
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': config('DB_NAME'),
+#        'USER': config('DB_USER'),
+#        'PASSWORD': config('DB_PASSWD'),
         #'HOST': config('SERVER_IP'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+#        'HOST': config('DB_HOST'),
+#        'PORT': config('DB_PORT'),
+#    }
+#}
+if os.environ.get("GITHUB_ACTIONS"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("DB_NAME"),
+            "USER": config("DB_USER"),
+            "PASSWORD": config("DB_PASSWD"),
+            "HOST": config("DB_HOST"),
+            "PORT": config("DB_PORT"),
+        }
+    }
 #DATABASE_URL = os.getenv('DATABASE_URL')
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
