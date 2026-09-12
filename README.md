@@ -1,40 +1,153 @@
-<p><strong>Task:</strong><br>Установить Docker, собрать контейнер для webAdmin<br><strong>Decision:</strong><br>Для Запуска проекта необходимо ввести следующие команды:<br>docker compose down -v<br>docker compose up --build<br>docker compose exec web python manage.py migrate<br>docker compose exec web python manage.py createsuperuser<br>docker compose exec -T postgres psql -U dato -d dato138it &lt; backupDb.sql<br>Ссылка на страницу:<br>- http://localhost:8000<br>- http://localhost:8000/admin<br><strong>Task:</strong><br>улучшить существующий REST API;<br>добавить поиск и фильтрацию;<br>добавить пагинацию;<br>настроить Swagger.<br><strong>Decision:</strong><br>docker compose down<br>docker compose up --build<br>Ссылка на страницу:<br>- http://localhost:8000/api/docs<br>- http://localhost:8000/api/portfolio/?cat=1<br>- http://localhost:8000/api/portfolio/?search=Python<br>- http://localhost:8000/api/schema/swagger-ui/<br><strong>Task:</strong><br>Установим JWT-библиотеку.<br>Настроим settings.py.<br>Добавим URL для получения токена.<br>Получим первый JWT-токен.<br>Проверим защищенный API.<br><strong>Decision:</strong><br>docker compose build<br>docker compose up<br>Ссылка на страницу:<br>- http://localhost:8000/api/token/<br>- http://localhost:8000/api/portfolio/latest/<br>- http://localhost:8000/api/portfolio/latest/?count=1<br>- http://localhost:8000/api/portfolio/latest/?count=5<br>- http://localhost:8000/api/portfolio/latest/?count=abc<br>- http://localhost:8000/api/portfolio/latest/?count=-10<br>- http://localhost:8000/api/portfolio/latest/?count=1000<br>- http://localhost:8000/api/portfolio/1/info/<br>- http://localhost:8000/api/portfolio/7/info/<br>- http://localhost:8000/api/portfolio/5/duplicate/<br><strong>Task:</strong><br>- JWT (логин по токену)<br>- Permissions<br>- Загрузка файлов через API<br>- Права пользователей<br>- Пагинация и производительность<br>- Тестирование<br>- Деплой на VPS<br><strong>Decision:</strong><br>docker compose build<br>docker compose up<br>Ссылка на страницу:<br>- http://localhost:8000/api/schema/swagger-ui<br>- http://localhost:8000/api/docs<br>- http://localhost:8000/api/portfolio/<br><strong>Task:</strong><br>Загрузка файлов через API (ImageField, FileField, multipart/form-data).<br>Права владельца объекта (только автор записи может её изменять или удалять).<br>Оптимизация запросов (select_related, prefetch_related).<br>Тестирование API (pytest, APIClient).<br>Развертывание проекта (Gunicorn + Nginx + Docker Compose на VPS).<br><strong>Decision:</strong><br>docker compose build<br>docker compose up<br>docker compose exec web python manage.py makemigrations<br>docker compose exec web python manage.py migrate<br>Ссылка на страницу:<br>- http://localhost:8000/api/portfolio/<br>- http://localhost:8000/media/uploads/2026/07/23/ChatGPT_Image_14_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._09_36_04.png<br>- http://localhost:8000/api/docs<br><strong>Task:</strong><br>Тестирование API (pytest, APIClient).<br><strong>Decision:</strong><br>docker compose build<br>docker compose up<br>docker compose exec web python manage.py test<br>docker compose exec web python manage.py test webApp<br><strong>Task:</strong><br>GitHub Actions.<br>- Локально — PostgreSQL (как сейчас).<br>- На сервере — PostgreSQL.<br>- GitHub Actions — SQLite только для тестов.<br><strong>Decision:</strong><br>- fileExecute.sh используется для предоставления прав доступа<br>- gitAdd.sh Добавляет новსქ проект в гитхаб<br>- gitDiff.sh Сравнивает изменения в гитхабе<br>- gitPush.sh Добавляет изменения в гитхаб<br>для запуска скрипта необходимо ввести команды:<br>cd scripts/<br>pwd<br>./fileExecute.sh<br>Введите путь к файлу: /home/dato/dato138it/scripts/gitAdd.sh<br>./gitAdd.sh<br>Enter GitHub repository URL: https://github.com/it38dato/webDato38it<br>Enter commit message: Config django, drf, docker, token, test<br>...<br>Username for 'https://github.com': it38dato<br>Password for 'https://it38dato@github.com':<br>...<br>Ссылка на страницу:<br>- https://github.com/it38dato/webDato38it/actions<br><strong>Task:</strong><br>сделать полностью production-ready стек:<br>- Gunicorn<br>- Nginx<br>- Docker Compose для production<br>- автоматические миграции<br>- collectstatic<br>- HTTPS (на следующем этапе)<br><strong>Decision:</strong><br>docker compose down<br>docker compose build --no-cache<br>docker compose up<br>docker compose ps<br>docker compose restart web<br>Ссылка на страницу:<br>- http://localhost:8000<br>- http://localhost:8000/api/docs/<br>- http://localhost:8000/admin<br>
-    <strong>Task:</strong><br>
-    В файле input.txt надо обычный текст преобразовать в html код формат, добавив только необходимые тэги, и записать результат в output.html.<br>
-    <strong>Decision:</strong><br>
-    Примечания:<br>
-    1. Это необязательный скрипт в проекте. Мне помог только в там случае, когда необохдимо было перевести обычный текст в html формат<br>
-    2. скрипт находится в папке scripts\convertTxtHtml<br>
-    3. В файле input.txt нужно добавить текст, который вы хотите проебоховать в html формат. в файле output.txt отобразится результат. запустить командой:<br>
-    python3 startSortHtml.py
-    <strong>Task:</strong><br>
-    Необходимо установить и настроить веб-сервер с нуля<br>
-    <strong>Decision:</strong><br>
-    Примечания:<br>
-    1. Проект предназначен для тестовой и боевой среды<br>
-    2. Установка Python: Скачать и установить Python 3.10, убедиться, что он добавлен в PATH.<br>
-    3. Проверка Python: Запустить pythonCheck.bat, для Линукс систем - pythonCheck.sh.<br>
-    4. Создание Django-проекта (скрипт находится в папке scripts\djangoNewSet): Запустить settings.bat, для Линукс систем - settings.sh.<br>
-    Что делает скрипт: Создаёт виртуальное окружение, Устанавливает зависимости из requirements.txt, Создаёт Django-проект в домашней директории, Запрашивает Имя виртуального окружения (SET VENV_NAME=...), Название проекта, Логин и пароль администратора и Показывает Команду активации виртуального окружения и Путь к исходным файлам проекта.<br>
-    Файл requirements.txt должен находиться в той же папке, откуда запускается settings.bat.<br>
-    5. Запуск тестового сервера: Запустить Скрипт start.bat, для Линукс систем - start.sh.<br>
-    Скрипт запрашивает Название проекта, IP-адрес. Если IP не указан, используется: http://127.0.0.1:8000<br>
-    Если в settings.py изменён параметр:<br>
-    ALLOWED_HOSTS = []<br>
-    необходимо указать IP и порт, прописанные в ALLOWED\_HOSTS (например: 127.0.0.1:8000)<br>
-    Остановка сервера - CTRL + C
-    <strong>Task:</strong><br>
-    Сделать интеграцию м ботом макс<br>
-    <strong>Decision:</strong><br>
-    docker compose up -d --build<br>
-    docker compose exec web python -c "import os; print(bool(os.getenv('MAX_BOT_TOKEN')))"<br>
-    docker compose exec web python manage.py startapp max_bot<br>
-    ls max_bot<br>
-    mkdir certs<br>
-    curl -fL https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt -o certs/russian_trusted_root_ca_pem.crt<br>
-    docker compose up -d --build web<br>
-    docker compose exec web ls -l /usr/local/share/ca-certificates/<br>
-    docker compose exec web ls -l /etc/ssl/certs/ | grep russian<br>    
-    docker compose stop<br>
-    docker compose down
-</p>
+# webDato38it
+
+Backend-проект на Python/Django, который я использую для практики разработки веб-приложений, REST API, работы с PostgreSQL, Docker, CI/CD и внешними интеграциями.
+
+Проект постепенно развивается: от обычного Django-приложения до полноценного backend-стека с REST API, авторизацией, тестированием, production-конфигурацией и интеграцией с ботом.
+
+## 🚀 Что реализовано
+
+* Django + Django REST Framework
+* PostgreSQL
+* REST API
+* JWT-аутентификация
+* Permissions и права пользователей
+* Загрузка файлов через API
+* Поиск, фильтрация и пагинация
+* Swagger / OpenAPI
+* Тестирование API
+* Docker / Docker Compose
+* Gunicorn
+* Nginx
+* GitHub Actions
+* Production-конфигурация
+* Интеграция с ботом MAX
+
+## 🤖 MAX Bot
+
+В рамках дальнейшего развития проекта добавлена интеграция с ботом MAX.
+
+Сейчас бот находится на этапе тестирования.
+
+Основная задача интеграции — обеспечить взаимодействие бота с backend-приложением и постепенно расширять его функциональность.
+
+## 🛠 Стек
+
+**Backend:**
+
+* Python
+* Django
+* Django REST Framework
+
+**Database:**
+
+* PostgreSQL
+
+**API:**
+
+* REST API
+* JWT
+* Swagger / OpenAPI
+
+**DevOps:**
+
+* Docker
+* Docker Compose
+* Nginx
+* Gunicorn
+* GitHub Actions
+
+**Testing:**
+
+* Django Test Framework
+* APIClient
+* pytest
+
+## 📁 Структура проекта
+
+```text
+webDato38it/
+├── dato138it/       # настройки Django
+├── webApp/          # основное приложение
+├── max_bot/         # интеграция с MAX
+├── nginx/           # конфигурация Nginx
+├── scripts/         # вспомогательные скрипты
+├── static/
+├── staticfiles/
+├── media/
+├── Dockerfile
+├── docker-compose.yml
+├── entrypoint.sh
+├── manage.py
+└── requirements.txt
+```
+
+## ▶️ Запуск
+
+Клонировать репозиторий:
+
+```bash
+git clone https://github.com/it38dato/webDato38it.git
+cd webDato38it
+```
+
+Запустить Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+Применить миграции:
+
+```bash
+docker compose exec web python manage.py migrate
+```
+
+Создать администратора:
+
+```bash
+docker compose exec web python manage.py createsuperuser
+```
+
+После запуска:
+
+```text
+http://localhost:8000
+http://localhost:8000/admin
+http://localhost:8000/api/docs
+```
+
+## 🧪 Тестирование
+
+Запуск тестов:
+
+```bash
+docker compose exec web python manage.py test
+```
+
+Также тестируется REST API с использованием APIClient.
+
+## 📌 Текущий статус
+
+Проект находится в активной разработке.
+
+Сейчас основное направление работы — развитие интеграции с MAX Bot, тестирование взаимодействия с backend и дальнейшее улучшение архитектуры проекта.
+
+## 🎯 Цель проекта
+
+Проект создаётся как практическая площадка для развития навыков Python Backend Development.
+
+В процессе разработки я практикую:
+
+* разработку REST API;
+* работу с PostgreSQL;
+* Docker-контейнеризацию;
+* аутентификацию и авторизацию;
+* тестирование;
+* CI/CD;
+* настройку production-окружения;
+* интеграцию внешних сервисов;
+* разработку и поддержку backend-приложения.
+
+## 🔗 Автор
+
+GitHub: https://github.com/it38dato
