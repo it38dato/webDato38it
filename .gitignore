@@ -6,3 +6,4 @@ dato138it/__pycache__
 webApp/__pycache__
 webApp/migrations/__pycache__
 backups/
+certs/russian_trusted_root_ca_pem.crt

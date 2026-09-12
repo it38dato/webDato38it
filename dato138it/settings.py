@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'drf_spectacular',
     'django_filters',
+    'max_bot',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

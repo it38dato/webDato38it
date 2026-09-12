@@ -23,4 +23,18 @@
     ALLOWED_HOSTS = []<br>
     необходимо указать IP и порт, прописанные в ALLOWED\_HOSTS (например: 127.0.0.1:8000)<br>
     Остановка сервера - CTRL + C
+    <strong>Task:</strong><br>
+    Сделать интеграцию м ботом макс<br>
+    <strong>Decision:</strong><br>
+    docker compose up -d --build<br>
+    docker compose exec web python -c "import os; print(bool(os.getenv('MAX_BOT_TOKEN')))"<br>
+    docker compose exec web python manage.py startapp max_bot<br>
+    ls max_bot<br>
+    mkdir certs<br>
+    curl -fL https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt -o certs/russian_trusted_root_ca_pem.crt<br>
+    docker compose up -d --build web<br>
+    docker compose exec web ls -l /usr/local/share/ca-certificates/<br>
+    docker compose exec web ls -l /etc/ssl/certs/ | grep russian<br>    
+    docker compose stop<br>
+    docker compose down
 </p>
