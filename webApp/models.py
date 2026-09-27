@@ -44,3 +44,23 @@ class Category(models.Model):
     #title = models.CharField(max_length=255)
     class Meta:
         db_table = 'portfolio_category'
+class About(models.Model):
+    title = models.CharField(
+        max_length=200,
+        default="Обо мне",
+    )
+    text = models.TextField()
+    def __str__(self):
+        return self.title
+class Skill(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    order = models.PositiveIntegerField(default=0)
+    def __str__(self):
+        return self.name
+class Contact(models.Model):
+    name = models.CharField(max_length=100)
+    value = models.CharField(max_length=500)
+    order = models.PositiveIntegerField(default=0)
+    def __str__(self):
+        return self.name
