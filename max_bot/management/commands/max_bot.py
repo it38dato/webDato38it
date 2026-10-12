@@ -1,7 +1,7 @@
+import time
 from django.core.management.base import BaseCommand
 from max_bot.client import MaxClient
 from max_bot.handlers import handle_update
-
 
 class Command(BaseCommand):
     help = "Запускает MAX-бота через Long Polling"
@@ -38,5 +38,5 @@ class Command(BaseCommand):
                         f"MAX bot error: {error}"
                     )
                 )
-
+                time.sleep(5)
 
