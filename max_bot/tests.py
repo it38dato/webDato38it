@@ -93,3 +93,40 @@ class MaxBotTests(SimpleTestCase):
 
         self.assertIsNone(result)
         mock_send_message.assert_not_called()
+
+
+    @patch("max_bot.management.commands.max_bot.handle_update")
+    @patch("max_bot.management.commands.max_bot.MaxClient")
+    def test_update_error_does_not_stop_next_update(
+        self,
+        mock_client_class,
+        mock_handle_update,
+    ):
+        from io import StringIO
+
+        from django.core.management import call_command
+
+        mock_client = mock_client_class.return_value
+        mock_client.get_updates.side_effect = [
+            {
+                "marker": 2,
+                "updates": [
+                    {"id": 1},
+                    {"id": 2},
+                ],
+            },
+            KeyboardInterrupt(),
+        ]
+
+        mock_handle_update.side_effect = [
+            RuntimeError("Test error"),
+            None,
+        ]
+
+        call_command(
+            "max_bot",
+            stdout=StringIO(),
+            stderr=StringIO(),
+        )
+
+        self.assertEqual(mock_handle_update.call_count, 2)
