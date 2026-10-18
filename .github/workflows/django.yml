@@ -16,6 +16,23 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    # Поднимаем временную базу PostgreSQL для тестов
+    services:
+      postgres_db:
+        image: postgres:15
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+        # Ждем, пока база полностью загрузится и станет доступна
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
 
       - name: Checkout project
@@ -34,5 +51,10 @@ jobs:
       - name: Run tests
         env:
           DJANGO_KEY: ${{ secrets.DJANGO_KEY }}
+          DB_NAME: test_db
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          DB_HOST: localhost
+          DB_PORT: 5432
         run: |
           python manage.py test
